@@ -16,6 +16,7 @@ import datetime
 import boto3
 from botocore.exceptions import ClientError
 import tempfile
+import pafy
 from pydub import AudioSegment
 from StringIO import StringIO
 import configparser
@@ -468,11 +469,10 @@ def download():
     id = request.json['id']
     video_info = request.json['info']
 
-    with youtube_dl.YoutubeDL({'format': 'bestaudio/best', 'quiet': 'True', 'no_warnings': 'True'}) as ydl:
-          info_dict = ydl.extract_info(YOUTUBE_URL + id, download=False)
-          video_url = info_dict.get("url", None)
+    video = pafy.new(YOUTUBE_URL + id)
+    audio = video.getbestaudio()
 
-    response = requests.get(video_url)
+    response = requests.get(audio.url)
     if response.status_code != 200:
         return make_response('Failed to download YouTube audio.', 400)
 

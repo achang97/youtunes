@@ -3,8 +3,8 @@ branch-defaults:
     environment: youtunes-env
 environment-defaults:
   youtunes-env:
-    branch: null
-    repository: null
+    branch: master
+    repository: youtunes
 global:
   application_name: youtunes
   default_ec2_keyname: null

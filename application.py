@@ -31,8 +31,8 @@ RANDOM_STRING_LENGTH = 16
 YOUTUBE_URL = 'https://www.youtube.com/watch?v='
 
 SPOTIFY_BASE_URL = 'https://api.spotify.com'
-# SPOTIFY_REDIRECT = 'http://www.youtunes-downloader.com/spotifyCallback'
-SPOTIFY_REDIRECT = 'http://localhost:5000/spotifyCallback'
+SPOTIFY_REDIRECT = 'http://www.youtunes-downloader.com/spotifyCallback'
+# SPOTIFY_REDIRECT = 'http://localhost:5000/spotifyCallback'
 SPOTIFY_STATE_KEY = 'spotify_auth_state'
 SPOTIFY_EXPIRATION = 3600
 

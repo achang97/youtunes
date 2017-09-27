@@ -1,0 +1,10 @@
+.spotify-spacer {
+	height: 90px;
+}
+
+.spotify-player {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+}

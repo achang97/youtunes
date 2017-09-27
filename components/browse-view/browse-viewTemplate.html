@@ -1,0 +1,27 @@
+<md-tabs class="browse-tabs">
+	<md-tab>
+		<md-tab-label>
+			<div class="browse-tab-container">
+				<img class="browse-icon" src="images/youtube.png"/>
+				<span> Search </span>
+			</div>
+		</md-tab-label>
+		<md-tab-body>
+			<search-bar search-fn="search()" placeholder="Search YouTube" search-var="main.searchQuery"></search-bar>
+		</md-tab-body>
+	</md-tab>
+
+	<md-tab ng-repeat="trackInfo in spotifyTracks | orderBy : 'type'">>
+		<md-tab-label>
+			<div class="browse-tab-container">
+				<img class="browse-icon" src="images/spotify.png" />
+				<span> {{trackInfo.type}} </span>
+			</div>
+		</md-tab-label>
+		<md-tab-body>
+
+			<results-display type="spotify" results="trackInfo.tracks" select-fn="searchWithSpotify(result)" img-on-click-fn="setUri(uri)"></results-display>
+
+		</md-tab-body>
+	</md-tab>
+</md-tabs>

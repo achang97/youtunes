@@ -1,0 +1,20 @@
+<div ng-repeat="result in results" class="results-container">
+	<div class="results-info-container">
+		<div class="results-thumbnail">
+			<img ng-if="type === 'spotify'" ng-src="{{result.album_art_url}}" ng-click="imgOnClickFn({uri: result.uri})""/>
+			<img ng-if="type === 'youtube'" ng-src="{{result.thumbnail}}" ng-click="imgOnClickFn({event: $event, index: $index})"/>			
+			<span class="results-duration">{{result.duration}}</span>
+		</div>
+		<div ng-if="type === 'spotify'">
+			<span class="results-title">{{result.song_name}}</span>
+			<span> {{result.artists.join(', ')}} </span>
+		</div>
+		<div ng-if="type === 'youtube'">
+			<a class="results-title" ng-href="//youtube.com/watch?v={{result.id}}" target="_blank">{{result.title}}</a>
+			<a ng-href="//youtube.com/channel/{{result.channelId}}" target="_blank">{{result.channel}}</a>
+		</div>
+	</div>
+	<div class="results-select-button">
+		<md-button class="md-warn md-raised md-hue-2" ng-click="selectFn({result : result})">SELECT</md-button>
+	</div>
+</div>

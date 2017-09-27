@@ -1,0 +1,29 @@
+<div class="home-container">
+	<div class="home-header-box">
+		<h1>
+			YouTunes - the music download website optimized just for {{main.spotifyName || 'you'}}.
+		</h1>
+
+		<h3>
+			Begin searching and downloading right away. For an even better experience, login with Spotify.
+		</h3>
+
+		<p> DISCLAIMER: This is just an educational project and not meant for commercial use.</p>
+	</div>
+
+	<div class="home-button-container">
+		<md-button ng-disabled="main.spotifyLoading" class="home-button home-spotify-button" ng-click="spotifyLogin()">
+			<md-progress-circular md-diameter="20" ng-if="main.spotifyLoading" class="home-loader"></md-progress-circular>
+			<span ng-if="!isLoggedIn() && !main.spotifyLoading"> Login With Spotify </span>
+			<span class="home-spotify-info" ng-if="isLoggedIn() && !main.spotifyLoading"> 
+				Logged In As {{main.spotifyName}}
+                <img ng-src="{{main.spotifyImgUrl}}" class="main-spotify-profile-image"/>
+			</span>
+		</md-button>
+		<md-button class="home-button home-start-button" ng-click="goToSearch()"> 
+			Get Started 
+		</md-button>
+	</div>
+
+	<h4 ng-if="spotifySuccessful === false"> {{error}}</h4>
+</div>

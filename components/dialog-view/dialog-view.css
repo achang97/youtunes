@@ -1,0 +1,73 @@
+.dialog-view {
+	height: 80%;
+	width: 80%;
+	background-color: black;
+	color: white;
+	padding: 5px;
+}
+
+.dialog-view md-icon {
+	color: white;
+}
+
+.dialog-loader {
+	margin: auto;
+	position: absolute;
+}
+
+.dialog-loader svg path {
+	stroke: white;
+}
+
+.dialog-title-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.dialog-icon {
+	margin-left: 15px;
+}
+
+.dialog-video-info {
+	margin-top: 10px;
+}
+
+.dialog-video-title {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.dialog-video-metadata {
+	margin-top: 20px;
+}
+
+.dialog-video-description-container {
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+
+.dialog-video-description {
+	font-size: 14px;
+	white-space: pre-wrap;
+}
+
+.dialog-container {
+	display: flex;
+	flex-shrink: 0;
+	width: 100%;
+	min-height: 70%;
+}
+
+.dialog-video-container {
+	flex: 1;
+}
+
+.dialog-exit-button {
+	position: fixed;
+	right: 5px;
+}
+
+.dialog-exit-button:hover {
+	cursor: pointer;
+}

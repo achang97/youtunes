@@ -1,0 +1,34 @@
+<md-dialog class="dialog-view" ng-keydown="key($event)">
+
+	<md-icon class="dialog-exit-button" ng-click="exit()">cancel</md-icon>
+
+	<div class="dialog-container">
+		<md-button ng-click="goLeft()"> <md-icon>keyboard_arrow_left</md-icon> </md-button>	
+		<div class="dialog-video-container">
+			<youtube-video player-width="'100%'" player-height="'100%'" class="dialog-video" video-id="allVideos[index].id" player="dialogPlayer"></youtube-video>
+		</div>
+		<md-button ng-click="goRight()"> <md-icon>keyboard_arrow_right</md-icon> </md-button>
+	</div>
+
+	<div class="dialog-video-info">
+		<div class="dialog-title-container">
+			<a class="dialog-video-title" ng-href="//youtube.com/watch?v={{allVideos[index].id}}" target="_blank">{{allVideos[index].title}}</a>
+			<md-button class="md-warn md-raised md-hue-2" ng-click="selectVideo()">Select</md-button>
+		</div>
+		<a ng-href="//youtube.com/channel/{{allVideos[index].channelId}}" target="_blank">{{allVideos[index].channel}}</a>
+		<div class="dialog-video-metadata">				
+			<span> {{(allVideos[index].views | number) || 'N/A'}} views</span>
+			<span class="dialog-icon">
+				<md-icon> thumb_up </md-icon> {{(allVideos[index].likes | number) || 'N/A'}}
+			</span>
+			<span class="dialog-icon">
+				<md-icon> thumb_down </md-icon> {{(allVideos[index].dislikes | number) || 'N/A'}}
+			</span>
+		</div>
+		<div>Published on {{allVideos[index].date | date}}</div>
+
+		<div class="dialog-video-description-container">
+			<span class="dialog-video-description">{{allVideos[index].description}}</span>
+		</div>
+	</div>
+</md-dialog>

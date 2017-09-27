@@ -1,0 +1,38 @@
+.home-container {
+	height: 100%;
+	text-align: center;
+}
+
+.home-loader svg path {
+	stroke: white;
+}
+
+.home-loader {
+	margin: auto;
+}
+
+.home-header-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	height: 50%;
+}
+
+.home-button-container {
+	display: flex;
+	justify-content: center;
+}
+
+.home-spotify-button {
+	background: green !important;
+}
+
+.home-start-button {
+	background: orangered !important;
+}
+
+.home-spotify-info {
+	display: flex;
+	align-items: center;
+}

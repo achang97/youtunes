@@ -1,0 +1,9 @@
+.youtube-search-loader {
+	margin: auto;
+	margin-top: 20px;
+}
+
+.youtube-search-loader svg path {
+	stroke: white;
+}
+

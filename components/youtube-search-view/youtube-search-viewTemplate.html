@@ -1,0 +1,5 @@
+<search-bar search-fn="search()" placeholder="Search YouTube" search-var="main.resultsQuery"></search-bar>
+
+<md-progress-circular class="youtube-search-loader" ng-if="loading"></md-progress-circular>
+
+<results-display type="youtube" results="allVideos" select-fn="selectVideo(result)" img-on-click-fn="showAdvanced(event, index)"></results-display>

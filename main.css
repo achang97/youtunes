@@ -1,0 +1,79 @@
+body {
+	font-family: Century Gothic, sans-serif;
+	font-size: 16px;
+}
+
+.main-content {
+	background-color: black;
+	color: white;
+}
+
+.main-toolbar {
+	background-color: orangered !important;
+}
+
+.main-toolbar-item {
+	display: inline-block;
+	margin: 10px;
+	color: white;
+}
+
+.main-toolbar-button:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.main-view {
+	height: 100%;
+}
+
+md-input-container .md-errors-spacer {
+    min-height: 0;
+}
+
+md-input-container {
+	background: white;
+}
+
+md-input-container input {
+	font-family: Century Gothic, sans-serif;
+}
+
+.md-button {
+	border-radius: 20px !important;
+}
+
+.main-spotify-info {
+	display: flex;
+	align-items: center;
+}
+
+.main-spotify-profile-image {
+	width: 30px;
+	height: 30px;
+	margin-left: 10px;
+	border-radius: 20px;
+}
+
+.main-spotify-profile-image:hover {
+	cursor: pointer;
+}
+
+.main-tooltip {
+	font-size: 16px;
+}
+
+a {
+	color: white;
+	display: inline-block;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: white;
+}
+
+a:visited {
+	color: white;
+}

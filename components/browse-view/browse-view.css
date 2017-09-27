@@ -1,0 +1,14 @@
+.browse-tabs {
+	height: 100%;
+}
+
+.browse-tab-container {
+	display: flex;
+	align-items: center;
+	color: white;
+}
+
+.browse-icon {
+	height: 20px;
+	padding-right: 2px;
+}

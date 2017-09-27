@@ -1,0 +1,113 @@
+.download-play-container {
+	position: relative;
+	margin-right: 5px;
+}
+
+.download-loader {
+	margin: auto;
+}
+
+.download-loader svg path {
+	stroke: white;
+}
+
+.download-player-control {
+	height: 100px;
+	width: 100px;
+	padding: 100px;
+	position: absolute;
+	top: 0px;
+	opacity: 0.7;
+	z-index: 2;
+}
+
+.download-player-control:hover, .download-delete:hover {
+	cursor: pointer;
+}
+
+.download-video {
+	display: none;
+}
+
+.download-thumbnail {
+	height: 300px;
+	width: 300px;
+}
+
+.download-info-container {
+	display: flex;
+	margin: 10px;
+}
+
+.download-metadata {
+	font-size: 18px;
+	flex: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.download-category {
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+}
+
+.download-category-title {
+	font-weight: bold;
+	min-width: 15ch;
+}
+
+.download-category-value {
+	margin: 0px;
+	margin-bottom: 2px;
+
+	flex: 1;
+	height: 34px;
+}
+
+.download-full-width {
+	width: 100%;
+}
+
+.download-array-container {
+	display: flex;
+}
+
+.download-link {
+	display: inline;
+}
+
+.download-button-container {
+	width: 100%;
+	text-align: center;
+}
+
+.download-add-button {
+	margin: 0px;
+	margin-bottom: 5px;
+}
+
+.download-add-button md-icon {
+	color: white;
+}
+
+.download-delete {
+	color: black;
+}
+
+.download-alert-container {
+	visibility: hidden;
+}
+
+.download-alert {
+	background: black;
+	color: white;
+	text-align: center;
+}
+
+.download-alert-message {
+	text-align: left;
+}

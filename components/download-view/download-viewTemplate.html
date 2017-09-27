@@ -1,0 +1,72 @@
+<youtube-video class="download-video" video-id="videoId" player="downloadPlayer"></youtube-video>
+
+<div class="download-info-container">
+	<div class="download-play-container">
+		<img ng-src="{{videoInfo[4].value}}" class="download-thumbnail"/>
+		<img class="download-player-control" src="images/play.png" ng-if="!playing && playerLoaded && !playerError" ng-click="play()"/>
+		<img class="download-player-control" src="images/pause.png" ng-if="playing && playerLoaded && !playerError" ng-click="pause()"/>
+		<img class="download-player-control" src="images/error.png" ng-if="playerError"/>
+
+		<div class="download-button-container">
+			<md-button class="md-warn md-raised md-hue-2" ng-if="converting">
+				<md-progress-circular class="download-loader" md-diameter="20"></md-progress-circular>
+			</md-button>
+			<md-button ng-if="!converting" class="md-warn md-raised md-hue-2" ng-click="convert()"> 
+				Convert to mp3
+			</md-button>
+			<a class="download-link" ng-if="backendDownloadLink" target="_self" ng-href="{{backendDownloadLink}}" download="{{frontendDownloadName || 'default'}}.mp3">
+				<md-button class="md-warn md-raised md-hue-2">
+					Download
+				</md-button>
+			</a>
+
+		</div>
+	</div>
+
+	<div class="download-metadata">
+		<div class="download-full-width">
+			<div class="download-category" ng-repeat="category in videoInfo">
+				<div class="download-category-title"> {{category.display}}: </div> 
+				<div class="download-category-value" ng-if="!isEditing">{{getDisplay(category.value) || 'N / A'}}</div>
+				
+				<md-input-container class="download-category-value" ng-if="isEditing && !isArray(category.value)" md-no-float>
+					<input ng-model="category.value"></input>
+				</md-input-container>
+
+				<div flex ng-if="isEditing && isArray(category.value)">
+					<div class="download-array-container" ng-repeat="entry in category.value track by $index" >
+						<md-input-container class="download-category-value" md-no-float>
+							<input ng-model="category.value[$index]"></input>
+							<md-icon class="download-delete" ng-click="delete($index, category.value)">delete</md-icon>	
+						</md-input-container>
+					</div>
+
+					<div ng-if="category.value.length == 0"> No Current Artists </div>
+					<md-button class="download-add-button" ng-click="append(category.value)">
+						<md-icon>add_circle_outline</md-icon>
+						Add New Artist
+					</md-button>
+				</div>
+			</div>
+		</div>
+		<div class="download-button-container">
+			<md-button class="md-warn md-raised md-hue-2" ng-if="isEditing" ng-click="cancel()">Cancel</md-button>
+			<md-button class="md-warn md-raised md-hue-2" ng-click="edit()"> 
+				<span ng-if="!isEditing"> Edit </span>
+				<span ng-if="isEditing"> Save </span>
+			</md-button>
+		</div>
+	</div>
+</div>	
+
+<div class="download-alert-container">
+	<div class="md-dialog-container" id="alertDialog">
+		<md-dialog layout-padding class="download-alert">
+			<p class="download-alert-message">{{errorMessage}}</p>
+			<div>
+				<md-button class="md-warn md-raised md-hue-2" ng-click="hideAlert()">OK</md-button>
+			</div>
+		</md-dialog>
+	</div>
+</div>
+

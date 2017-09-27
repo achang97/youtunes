@@ -136,7 +136,7 @@ def spotify_callback():
             session['spotify_expiration'] = now + datetime.timedelta(seconds=expires_in)
             session['country'] = content['country']
 
-            return redirect('/music-app.html#!/search')
+            return redirect('/music-app.html#!/browse')
 
 
 def spotify_refresh():

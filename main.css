@@ -77,3 +77,20 @@ a:hover {
 a:visited {
 	color: white;
 }
+
+
+
+.main-alert-container {
+	visibility: hidden;
+}
+
+.main-alert {
+	background: black;
+	color: white;
+	text-align: center;
+}
+
+.main-alert-message {
+	text-align: left;
+}
+

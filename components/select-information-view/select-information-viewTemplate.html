@@ -1,8 +1,9 @@
 <search-bar search-fn="search()" placeholder="Search Spotify" search-var="main.spotifyQuery"></search-bar>
 
-<div class="select-manual-container">
+<div class="select-manual-container" ng-if="!loading">
 	<span> None of these results look correct? Try another search query, or </span>
 	<md-button class="md-warn md-raised md-hue-2" ng-click="selectResult({})">Enter Info Manually</md-button>
 </div>
 
-<results-display type="spotify" results="allSpotifyResults" select-fn="selectResult(result)" img-on-click-fn="setUri(uri)"></results-display>
+<md-progress-circular class="youtube-search-loader" ng-if="loading"></md-progress-circular>
+<results-display ng-if="!loading" type="spotify" results="allSpotifyResults" select-fn="selectResult(result)" img-on-click-fn="setUri(uri)"></results-display>

@@ -18,3 +18,6 @@
 		<md-button class="md-warn md-raised md-hue-2" ng-click="selectFn({result : result})">SELECT</md-button>
 	</div>
 </div>
+<div ng-if="results.length == 0">
+	<h3 class="results-none">We couldn't find anything! Try another search query.</h3>
+</div>

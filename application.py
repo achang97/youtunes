@@ -13,15 +13,9 @@ import os
 import urllib
 import base64
 import datetime
-import boto3
-from botocore.exceptions import ClientError
-import tempfile
-from pydub import AudioSegment
-from StringIO import StringIO
 import configparser
-from mutagen.mp3 import MP3
-from mutagen.id3 import ID3, APIC, TALB, TPE1, TPE2, TIT2, error
 import youtube_dl
+import eyed3
 
 KEYS = {}
 
@@ -36,9 +30,7 @@ SPOTIFY_REDIRECT = 'http://localhost:5000/spotifyCallback'
 SPOTIFY_STATE_KEY = 'spotify_auth_state'
 SPOTIFY_EXPIRATION = 3600
 
-AWS_BUCKET_NAME = 'elasticbeanstalk-us-west-1-417250080989'
-AWS_BUCKET_BASE_URL = 'https://s3-us-west-1.amazonaws.com/elasticbeanstalk-us-west-1-417250080989/'
-AWS_MP3_PATH = 'resources/youtunes/mp3-files/'
+MP3_FILES = 'mp3-files/'
 
 FRONT_COVER = 3
 
@@ -433,84 +425,62 @@ def search_youtube():
     return jsonify({'results': results})
 
 
-def update_song_info(mp3file, info):
+def update_song_info(filename, info):
 
-    if 'song_name' in info:
-        mp3file.tags.add(TIT2(encoding=3, text=info['song_name']))
-
+    f = eyed3.load(filename)
+    
     if 'album_name' in info:
-        mp3file.tags.add(TALB(encoding=3, text=info['album_name']))
+        f.tag.album = info['album_name']
 
     if len(info['artists']) != 0:
-        mp3file.tags.add(TPE1(encoding=3, text=', '.join(info['artists'])))
+        f.tag.artist = ', '.join(info['artists'])
 
     if len(info['album_artists']) != 0:
-        mp3file.tags.add(TPE2(encoding=3, text=', '.join(info['album_artists'])))
+        f.tag.album_artist = ', '.join(info['album_artists'])
 
     if 'album_art_url' in info:
         response = requests.get(info['album_art_url'])
         if response.status_code == 200:            
-            mp3file.tags.add(APIC(encoding=3, mime='image/png', type=3, data=response.content))
+            f.tag.images.set(FRONT_COVER, response.content, 'image/jpeg') 
 
+    f.tag.save()
 
-def file_exists(s3, bucket, key):
-    try:
-        s3.Object(bucket, key).load()
-    except ClientError as e:
-        return int(e.response['Error']['Code']) != 404
-    
-    return True
 
 
 @application.route("/download", methods=['POST'])
 def download():
 
-    id = request.json['id']
+    video_id = request.json['id']
     video_info = request.json['info']
 
-    with youtube_dl.YoutubeDL({'format': 'bestaudio/best'}) as ydl:
-          info_dict = ydl.extract_info(YOUTUBE_URL + id, download=False)
-          video_url = info_dict.get("url", None)
+    ydl_opts = {
+        'quiet': 'True',
+        'no_warnings': 'True',
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
 
-    response = requests.get(video_url)
-    if response.status_code != 200:
-        return make_response('Failed to download YouTube audio.', 400)
+    while True:
+        filename = MP3_FILES + generate_random_string()
+        if not os.path.exists(filename + '.mp3'):
+            break
 
-    sound = AudioSegment.from_file(StringIO(response.content), format='webm')
+    ydl_opts['outtmpl'] = '{}.%(ext)s'.format(filename)
+    filename += '.mp3'
 
-    # convert to mp3
-    with tempfile.TemporaryFile() as temp: 
-        sound.export(temp, format="mp3")
+    try:
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([YOUTUBE_URL + video_id])
+    except:
+        return make_response('Invalid video id.', 400)
 
-        temp.seek(0)
-
-        mp3file = MP3(temp, ID3=ID3)
-
-        try:
-            mp3file.add_tags()
-        except error:
-            pass
-
-        # update song info
-        update_song_info(mp3file, video_info)
-
-        temp.seek(0)
-        mp3file.save(fileobj=temp)
-
-        # make sure file is at the start
-        temp.seek(0)
-
-        # write to S3 bucket
-        s3 = boto3.resource('s3')
-
-        while True:
-            filename = AWS_MP3_PATH + generate_random_string(size=32) + '.mp3'
-            if not file_exists(s3, AWS_BUCKET_NAME, filename):   
-                break
-
-        s3.Object(AWS_BUCKET_NAME, filename).put(Body=temp.read())
-            
-        return jsonify({'download_link': AWS_BUCKET_BASE_URL + filename})
+    update_song_info(filename, video_info)
+    
+    return jsonify({'download': filename})
 
 
 def read_keys():
@@ -524,5 +494,5 @@ def read_keys():
 
 if __name__ == "__main__":
     read_keys()
-    application.run()
+    application.run(debug=True)
 

@@ -14,7 +14,7 @@
 			<md-button ng-if="!converting" class="md-warn md-raised md-hue-2" ng-click="convert()"> 
 				Convert to mp3
 			</md-button>
-			<a class="download-link" ng-if="backendDownloadLink" target="_self" ng-href="{{backendDownloadLink}}" download="{{frontendDownloadName || 'default'}}.mp3">
+			<a class="download-link" ng-if="backendDownloadName" target="_self" ng-href="{{backendDownloadName}}" download="{{frontendDownloadName || 'default'}}.mp3">
 				<md-button class="md-warn md-raised md-hue-2">
 					Download
 				</md-button>
@@ -56,17 +56,6 @@
 				<span ng-if="isEditing"> Save </span>
 			</md-button>
 		</div>
-	</div>
-</div>	
-
-<div class="download-alert-container">
-	<div class="md-dialog-container" id="alertDialog">
-		<md-dialog layout-padding class="download-alert">
-			<p class="download-alert-message">{{errorMessage}}</p>
-			<div>
-				<md-button class="md-warn md-raised md-hue-2" ng-click="hideAlert()">OK</md-button>
-			</div>
-		</md-dialog>
 	</div>
 </div>
 

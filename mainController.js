@@ -18,7 +18,7 @@ youtunesApp.config(function ($routeProvider) {
                 templateUrl: 'components/youtube-search-view/youtube-search-viewTemplate.html',
                 controller: 'YoutubeSearchViewController'
             }).
-            when('/selectInformation/:query/:id', {
+            when('/selectInformation/:query?/:id', {
                 templateUrl: 'components/select-information-view/select-information-viewTemplate.html',
                 controller: 'SelectInformationViewController'
             }).       
@@ -111,6 +111,22 @@ youtunesApp.controller('MainController', ['$scope', '$rootScope', '$location', '
         $scope.setUri = function (uri) {
             $scope.main.chosenUri = uri;
         };
+
+
+        $scope.showAlert = function (message) {
+            $scope.alertMessage = message;
+
+            $mdDialog.show({
+                contentElement: '#alertDialog',
+                parent: angular.element(document.body)
+            });
+        };
+
+
+        $scope.hideAlert = function () {
+            $mdDialog.hide();
+        };
+
 
         $scope.logout = function () {
             var logoutRes = $resource('/spotifyLogout');

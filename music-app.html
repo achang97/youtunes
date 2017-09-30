@@ -72,6 +72,17 @@
         <div flex layout="row">
             <md-content class="main-content" flex>
                 <div ng-view class="main-view"></div>
+
+                <div class="main-alert-container">
+                    <div class="md-dialog-container" id="alertDialog">
+                        <md-dialog layout-padding class="main-alert">
+                            <p class="main-alert-message">{{alertMessage}}</p>
+                            <div>
+                                <md-button class="md-warn md-raised md-hue-2" ng-click="hideAlert()">OK</md-button>
+                            </div>
+                        </md-dialog>
+                    </div>
+                </div>
                 <spotify-player ng-if="main.chosenUri" chosen-uri="main.chosenUri"></spotify-player>
             </md-content>
         </div>

@@ -5,6 +5,10 @@
 	justify-content: space-between;
 }
 
+.results-none {
+	text-align: center;
+}
+
 .results-container:hover .results-select-button {
 	display: inline !important;
 }

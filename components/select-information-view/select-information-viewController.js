@@ -21,10 +21,13 @@ youtunesApp.controller('SelectInformationViewController', ['$scope', '$resource'
       // change location
       $location.path('/selectInformation/' + $scope.main.spotifyQuery + '/' + $routeParams.id);
 
+      $scope.loading = true;
   		var searchInfo = searchRes.get({query: $scope.main.spotifyQuery}, function () {
   			$scope.allSpotifyResults = searchInfo.tracks;
+        $scope.loading = false;
   		}, function (err) {
   			console.log(err);
+        $scope.loading = false;
   		});
   	};
 

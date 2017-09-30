@@ -29,7 +29,24 @@ youtunesApp.controller('BrowseViewController', ['$scope', '$location', '$resourc
 
         // 1 signals that search Youtube was used
         $location.path('/youtubeSearch/' + $scope.main.searchQuery + '/1');
-    }
+    };
+
+
+    $scope.directConvert = function () {
+        if (!$scope.main.directConvertLink) {
+            return;
+        }
+
+        // check
+        var videoInfo = /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/.exec($scope.main.directConvertLink);
+
+        if (videoInfo) {
+            // go to search
+            $location.path('/selectInformation/' + videoInfo[1]);
+        } else {
+            $scope.showAlert('Please enter valid YouTube url.');
+        }
+    };
 
 
     $scope.searchWithSpotify = function (trackInfo) {

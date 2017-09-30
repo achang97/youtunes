@@ -97,17 +97,3 @@
 .download-delete {
 	color: black;
 }
-
-.download-alert-container {
-	visibility: hidden;
-}
-
-.download-alert {
-	background: black;
-	color: white;
-	text-align: center;
-}
-
-.download-alert-message {
-	text-align: left;
-}

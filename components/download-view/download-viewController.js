@@ -86,24 +86,11 @@ youtunesApp.controller('DownloadViewController', ['$scope', '$resource', '$route
         $scope.videoInfo = preeditVideoInfo;
     };
 
-    function showAlert(message) {
-        $scope.errorMessage = message;
-
-        $mdDialog.show({
-            contentElement: '#alertDialog',
-            parent: angular.element(document.body)
-        });
-    }
-
-    $scope.hideAlert = function () {
-        $mdDialog.hide();
-    }
-
     var lastUsedVideoInfo;
     $scope.convert = function () {
         
         if ($scope.isEditing) {
-            showAlert("Please save your changes before creating your mp3 file!");
+            $scope.showAlert("Please save your changes before creating your mp3 file!");
             return;
         }
 
@@ -122,7 +109,7 @@ youtunesApp.controller('DownloadViewController', ['$scope', '$resource', '$route
         }
 
         if (!hasChanged && lastUsedVideoInfo) {
-            showAlert("You haven't made any changes since your last conversion.");
+            $scope.showAlert("You haven't made any changes since your last conversion.");
             return;
         }
 
@@ -130,7 +117,7 @@ youtunesApp.controller('DownloadViewController', ['$scope', '$resource', '$route
 
         var downloadRes = $resource('/download');
         var downloadInfo = downloadRes.save({id: $scope.videoId, info: backendInfo}, function () {
-            $scope.backendDownloadLink = downloadInfo.download_link;
+            $scope.backendDownloadName = downloadInfo.download;
             $scope.frontendDownloadName = backendInfo['song_name'];
             $scope.converting = false;
 
@@ -140,7 +127,7 @@ youtunesApp.controller('DownloadViewController', ['$scope', '$resource', '$route
             console.log(err);
             $scope.converting = false;
 
-            showAlert('Failed to download the specified YouTube video. Please check to see all information is valid.')
+            $scope.showAlert('Failed to download the specified YouTube video. Please check to see all information is valid.')
         })        
     };
 
